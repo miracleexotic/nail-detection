@@ -1,0 +1,42 @@
+import pathlib
+import csv
+from pprint import pprint
+import re
+from matplotlib import pyplot as plt
+
+def read_from_csv(path):
+    data = []
+    with open(path, 'r') as f:
+        csv_in = csv.reader(f)
+        data = [row for row in csv_in]
+
+    return data
+
+def extract_data(data):
+    regex = r"\((.*?,.*?)\)"
+    for row in data:
+        matches = re.finditer(regex, row[2], re.MULTILINE)
+        match_list = [tuple(map(float, x.group().lstrip('(').strip(')').split(','))) for x in matches]
+        row[2] = match_list
+    
+    return data
+
+def plot_graph(data):
+    data_graph = data[2]
+    plt.plot(*zip(*data_graph))
+    plt.ylim([0, 255])
+    plt.xlabel("time(ms)")
+    plt.ylabel("intensity")
+    plt.show()
+
+
+
+if __name__ == '__main__':
+    data = read_from_csv(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\database\data_05112022_041604.csv')
+    data = extract_data(data)
+    # pprint(data)
+    for row in data:
+        print(row[0])
+        plot_graph(row)
+
+

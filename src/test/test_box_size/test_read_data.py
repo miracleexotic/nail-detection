@@ -34,7 +34,7 @@ def plot_graph(data):
 
 
 if __name__ == '__main__':
-    data = read_from_csv(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\database\data_25092022_141827.csv')
+    data = read_from_csv(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\database\new\data_01102022_135742.csv')
     data = extract_data(data)
     # pprint(data)
     for row in data:

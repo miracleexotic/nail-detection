@@ -1,9 +1,9 @@
-index, square_size, data_graph
-0, 5, "[(t1,i1),(t2,i2),(t3,i3),(t4,i4),(t5,i5),(t6,i6),(t7,i7),(t8,i8),(t9,i9),(t10,i10)]"
+index, square_size, data_graph, total_point
+0, 5, "[(t1,i1),(t2,i2),(t3,i3),(t4,i4),(t5,i5),(t6,i6),(t7,i7),(t8,i8),(t9,i9),(t10,i10)]", 10
 ...
 ...
 ...
-x, 100, "[(t1,i1),(t2,i2),(t3,i3),(t4,i4),(t5,i5),(t6,i6),(t7,i7),(t8,i8),(t9,i9),(t10,i10)]"
+x, 100, "[(t1,i1),(t2,i2),(t3,i3),(t4,i4),(t5,i5),(t6,i6),(t7,i7),(t8,i8),(t9,i9),(t10,i10)]", 10
 
 
 
