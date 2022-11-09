@@ -1,3 +1,7 @@
+"""
+บันทึกข้อมูลลงไฟล์ CSV เก็บที่ database folder
+"""
+
 import cv2
 import numpy as np
 from datetime import datetime
@@ -9,14 +13,17 @@ import pathlib
 TIME_TO_LIVE = 40 # seconds
 
 def adjust_frame(frame, box_size):
+    """ปรับปรุง frame ที่รับเข้ามา"""
     # converting to gray-scale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # crop image
     width = gray.shape[1]
     height = gray.shape[0]
+    # center pos
     w_c = width // 2
     h_c = height // 2
+    # zoom
     gray = gray[h_c-50:h_c+50, w_c-50:w_c+50]
 
     # resize image
@@ -39,7 +46,8 @@ def get_frames(box_size):
     data = []
 
     # reading the video
-    source = cv2.VideoCapture(0)
+    # source = cv2.VideoCapture(0)
+    source = cv2.VideoCapture(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\test\create_img\vdo\output-100.mp4')
 
     prev_time = time()
     curr_time = time()
@@ -51,6 +59,8 @@ def get_frames(box_size):
 
         # extracting the frames
         ret, img = source.read()
+        if ret == False:
+            break
         frame, value_intensity = adjust_frame(img, box_size)
 
         new_data = (curr_time - prev_time, value_intensity)
@@ -68,6 +78,7 @@ def get_frames(box_size):
 
 
 def data_to_string(data):
+    """แปลงข้อมูลพิกัดให้เก็บในรูปแบบ string ของ data_graph ลงในไฟล์ csv"""
     data_string = "["
     for t_data, i_data in data:
         data_string += f"({t_data},{i_data}),"
@@ -77,6 +88,7 @@ def data_to_string(data):
     return data_string
 
 def data_to_csv(data):
+    """บันทึกไฟล์ลง csv"""
     path_to_database = pathlib.Path(__file__).parent.parent.parent / "database"
     datetime_str = datetime.now().strftime("%d%m%Y_%H%M%S")
     filename = path_to_database / f"data_{datetime_str}.csv"

@@ -6,13 +6,16 @@ import moviepy.video.io.ImageSequenceClip
 
 from matplotlib import pyplot as plt
 
+# img size
 WIDTH = 500
 HEIGHT = 500
 
+# path
 path_to_base = pathlib.Path(__file__).parent / "base"
 path_to_vdo = pathlib.Path(__file__).parent / "vdo"
 
 def gen_img():
+    """สร้างรูปภาพโดยไล่ตั้งแต่ 0-255 เป็นจำนวน 256 frame"""
     for i in range(256):
         print(f"{i}", end="")
         array = np.zeros([WIDTH, HEIGHT, 3], dtype=np.uint8)
@@ -23,18 +26,20 @@ def gen_img():
         print(" - success")
 
 def gen_vdo():
+    """สร้างวิดีโอโดยมี frame ตั้งแต่ 0-255 -> 31 วินาที 1 ลูกคลื่น"""
     fps = 20
     path_to_256 = path_to_base / "256"
-    delay_frame = [str(path_to_256 / "0.png") for i in range(20*3)]
-    start_frame = [str(path_to_256 / f"{i}.png") for i in range(256)]
-    end_frame = [str(path_to_256 / f"{i}.png") for i in range(255, -1, -1)]
+    delay_frame = [str(path_to_256 / "0.png") for i in range(20*3)] # delay 5 วิ ช่วงต้น-ท้าย
+    start_frame = [str(path_to_256 / f"{i}.png") for i in range(256)] # คลื่นครึ่งแรก
+    end_frame = [str(path_to_256 / f"{i}.png") for i in range(255, -1, -1)] # คลื่นครึ่งหลัง
 
-    image_files = [*delay_frame, *start_frame, *end_frame, *delay_frame]
+    image_files = [*delay_frame, *start_frame, *end_frame, *delay_frame] # รวมทุก frame
 
     clip = moviepy.video.io.ImageSequenceClip.ImageSequenceClip(image_files, fps=fps)
     clip.write_videofile(f'{path_to_vdo}\output-256.mp4')
 
 def gen_100_img():
+    """สร้างรูปภาพโดยไล่ตั้งแต่ 0-255 เป็นจำนวน 100 frame"""
     rgb = 0
     count = 1
     while count <= 100:
@@ -49,17 +54,18 @@ def gen_100_img():
         rgb += 2.57
 
 def gen_100_vdo():
+    """สร้างวิดีโอโดยมี frame ตั้งแต่ 0-255 -> 40 วินาที 3 ลูกคลื่น"""
     fps = 20
     path_to_100 = path_to_base / "100"
-    delay_frame = [str(path_to_100 / "1.png") for i in range(20*5)]
-    start_frame = [str(path_to_100 / f"{i}.png") for i in range(1, 101)]
+    delay_frame = [str(path_to_100 / "1.png") for i in range(20*5)] # delay 5 วิ ช่วงต้น-ท้าย
+    start_frame = [str(path_to_100 / f"{i}.png") for i in range(1, 101)] # คลื่นครึ่งแรก 
     # end_frame = [str(path_to_100 / f"{i}.png") for i in range(100, 0, -1)]
-    end_frame = start_frame[::-1]
+    end_frame = start_frame[::-1] # คลื่นครึ่งหลัง
 
-    wave = [*start_frame, *end_frame]
-    wave3 = [*wave, *wave, *wave]
+    wave = [*start_frame, *end_frame] # คลื่น 1 ลูก
+    wave3 = [*wave, *wave, *wave] # คลื่น 3 ลูก
 
-    image_files = [*delay_frame, *wave3, *delay_frame]
+    image_files = [*delay_frame, *wave3, *delay_frame] # รวมทุก frame
 
     clip = moviepy.video.io.ImageSequenceClip.ImageSequenceClip(image_files, fps=fps)
     clip.write_videofile(f'{path_to_vdo}\output-100.mp4')

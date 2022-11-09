@@ -1,10 +1,17 @@
+"""
+อ่านข้อมูลจากไฟล์ CSV ที่บันทึกโดยไฟล์ test_write_bs_data.py
+
+ข้อมูลจาก database folder
+"""
+
 import pathlib
 import csv
 from pprint import pprint
 import re
 from matplotlib import pyplot as plt
 
-def read_from_csv(path):
+def read_from_csv(path: str):
+    """อ่านข้อมูลจากไฟล์ csv"""
     data = []
     with open(path, 'r') as f:
         csv_in = csv.reader(f)
@@ -12,7 +19,8 @@ def read_from_csv(path):
 
     return data
 
-def extract_data(data):
+def extract_data(data: list):
+    """แยกข้อมูลจาก data_graph column"""
     regex = r"\((.*?,.*?)\)"
     for row in data:
         matches = re.finditer(regex, row[2], re.MULTILINE)
@@ -23,7 +31,7 @@ def extract_data(data):
     
     return data
 
-def plot_graph(data):
+def plot_graph(data: list):
     data_graph = data[2]
     plt.plot(*zip(*data_graph))
     plt.ylim([0, 255])
@@ -34,7 +42,7 @@ def plot_graph(data):
 
 
 if __name__ == '__main__':
-    data = read_from_csv(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\database\new\data_01102022_135742.csv')
+    data = read_from_csv(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\Database\DB_test_boxsize\rpi4\data_01102022_135742.csv')
     data = extract_data(data)
     # pprint(data)
     for row in data:
