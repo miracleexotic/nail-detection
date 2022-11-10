@@ -42,7 +42,7 @@ def plot_graph(data: list):
 
 
 if __name__ == '__main__':
-    data = read_from_csv(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\Database\DB_test_boxsize\rpi4\data_01102022_135742.csv')
+    data = read_from_csv(r'C:\Users\IAMMAI\Desktop\githubProject\NailsDetection\src\Database\DB_test_boxsize\data_10112022_183703.csv')
     data = extract_data(data)
     # pprint(data)
     for row in data:

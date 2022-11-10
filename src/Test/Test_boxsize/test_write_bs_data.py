@@ -86,7 +86,7 @@ def data_to_string(data):
 
 def data_to_csv(data):
     """บันทึกไฟล์ลง csv"""
-    path_to_database = pathlib.Path(__file__).parent.parent / "database"
+    path_to_database = pathlib.Path(__file__).parent.parent.parent / "Database" / "DB_test_boxsize"
     datetime_str = datetime.now().strftime("%d%m%Y_%H%M%S")
     filename = path_to_database / f"data_{datetime_str}.csv"
     with open(filename, 'w', newline='') as f:
@@ -96,7 +96,7 @@ def data_to_csv(data):
 def main():
     data = []
     size = 30
-    size_step = 5
+    size_step = 50
     index_number = 3
 
     for index in range(0, index_number):

@@ -109,7 +109,7 @@ def plot():
 
 if __name__ == '__main__':
     # gen_img()
-    # gen_100_frame()
+    gen_100_img()
     # gen_vdo()
     # gen_100_vdo()
     plot()
